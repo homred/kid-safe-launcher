@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <uses-feature android:name="android.hardware.wifi" android:required="false" />
     <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
@@ -67,6 +69,12 @@
             android:exported="false"
             android:theme="@style/Theme.KidSafeLauncher"
             android:parentActivityName=".activities.LauncherActivity" />
+
+        <activity
+            android:name=".activities.ParentalControlActivity"
+            android:exported="false"
+            android:theme="@style/Theme.KidSafeLauncher"
+            android:parentActivityName=".activities.SettingsActivity" />
 
         <receiver
             android:name=".receivers.PackageChangeReceiver"
