@@ -10,6 +10,8 @@
     <string name="uninstall">Uninstall</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
 
     <!-- Quick Panel -->
     <string name="quick_settings">Quick Settings</string>
@@ -55,4 +57,42 @@
     <string name="label_screen">Screen Resolution</string>
     <string name="label_density">Screen Density</string>
     <string name="label_battery">Battery Level</string>
+
+    <!-- Quick Panel Enhanced -->
+    <string name="brightness">Brightness</string>
+    <string name="volume">Volume</string>
+    <string name="airplane_mode">Airplane Mode</string>
+    <string name="screenshot">Screenshot</string>
+    <string name="battery">Battery</string>
+
+    <!-- Parental Controls -->
+    <string name="parental_controls">Parental Controls</string>
+    <string name="parental_controls_desc">Manage visible apps and set PIN</string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="set_pin">Set PIN</string>
+    <string name="confirm_pin">Confirm PIN</string>
+    <string name="new_pin">New PIN</string>
+    <string name="wrong_pin">Wrong PIN. Try again.</string>
+    <string name="pin_set_success">PIN set successfully</string>
+    <string name="pin_mismatch">PINs do not match</string>
+    <string name="pin_required">PIN is required to access parental controls</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="change_pin_desc">Update parental control PIN code</string>
+    <string name="visible_apps">Visible Apps</string>
+    <string name="visible_apps_desc">Choose which apps children can see</string>
+    <string name="all_apps_visible">All apps visible</string>
+    <string name="apps_hidden">%1$d apps hidden</string>
+    <string name="default_pin">0000</string>
+
+    <!-- View Modes -->
+    <string name="grid_view">Grid</string>
+    <string name="list_view">List</string>
+
+    <!-- Date/Time -->
+    <string name="greeting_morning">Good Morning</string>
+    <string name="greeting_afternoon">Good Afternoon</string>
+    <string name="greeting_evening">Good Evening</string>
+
+    <!-- TV Side Panel -->
+    <string name="controls">Controls</string>
 </resources>

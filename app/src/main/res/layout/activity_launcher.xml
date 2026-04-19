@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:fitsSystemWindows="false"
     tools:context=".activities.LauncherActivity">
 
     <!-- Main content -->
@@ -12,41 +13,92 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Status Bar (visible on large screens) -->
+        <!-- Header: Clock + Date + Status -->
         <LinearLayout
             android:id="@+id/status_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_height"
-            android:background="@color/primary"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="36dp"
+            android:paddingBottom="8dp">
 
-            <TextView
-                android:id="@+id/clock_text"
-                android:layout_width="0dp"
+            <!-- Top row: greeting + status icons -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/on_primary"
-                android:textSize="14sp"
-                tools:text="12:00" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/connection_text"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/greeting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/greeting_text_size"
+                    tools:text="Good Evening" />
+
+                <!-- Battery indicator -->
+                <TextView
+                    android:id="@+id/battery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    tools:text="85%" />
+
+                <TextView
+                    android:id="@+id/connection_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginStart="12dp"
+                    tools:text="WiFi" />
+            </LinearLayout>
+
+            <!-- Clock row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/on_primary"
-                android:textSize="12sp"
-                tools:text="WiFi" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="2dp">
+
+                <TextView
+                    android:id="@+id/clock_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/clock_text_size"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-light"
+                    tools:text="21:30" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/date_text_size"
+                    tools:text="Saturday, Apr 19" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Search Bar -->
+        <!-- Search Bar + View toggle -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/search_padding"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center_vertical">
 
             <EditText
@@ -57,34 +109,72 @@
                 android:background="@drawable/search_background"
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:drawablePadding="8dp"
+                android:drawableTint="@color/text_hint"
                 android:hint="@string/search_apps"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
                 android:textSize="14sp"
                 android:importantForAutofill="no" />
 
+            <!-- View mode toggle: Grid / List -->
+            <LinearLayout
+                android:id="@+id/view_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                android:background="@drawable/view_toggle_background"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/btn_grid_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="⊞"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:background="@drawable/view_toggle_background" />
+
+                <TextView
+                    android:id="@+id/btn_list_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="☰"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent" />
+            </LinearLayout>
+
             <ImageButton
                 android:id="@+id/btn_settings"
                 android:layout_width="@dimen/toolbar_button_size"
                 android:layout_height="@dimen/toolbar_button_size"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/settings"
                 android:src="@android:drawable/ic_menu_preferences"
+                android:tint="@color/text_secondary"
                 android:padding="8dp" />
 
             <ImageButton
                 android:id="@+id/btn_manage"
                 android:layout_width="@dimen/toolbar_button_size"
                 android:layout_height="@dimen/toolbar_button_size"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="2dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/manage_apps"
                 android:src="@android:drawable/ic_menu_manage"
+                android:tint="@color/text_secondary"
                 android:padding="8dp" />
         </LinearLayout>
 
@@ -96,12 +186,31 @@
             android:layout_weight="1"
             android:clipToPadding="false"
             android:padding="@dimen/grid_padding"
-            android:scrollbars="vertical"
+            android:scrollbars="none"
             android:numColumns="3"
-            android:horizontalSpacing="4dp"
-            android:verticalSpacing="8dp"
+            android:horizontalSpacing="6dp"
+            android:verticalSpacing="6dp"
             android:stretchMode="columnWidth"
-            android:gravity="center" />
+            android:gravity="center"
+            android:overScrollMode="never"
+            android:fadingEdge="none" />
+
+        <!-- App List (hidden by default, toggled by view mode) -->
+        <ListView
+            android:id="@+id/app_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:scrollbars="none"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="4dp"
+            android:overScrollMode="never"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -110,7 +219,7 @@
         android:id="@+id/quick_panel_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
+        android:background="@color/overlay_dark"
         android:visibility="gone" />
 
     <!-- Quick Settings Panel (pull-down) -->
@@ -125,21 +234,98 @@
             android:id="@+id/quick_panel_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface"
-            android:elevation="8dp"
+            android:background="@drawable/panel_background"
+            android:elevation="16dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="20dp">
 
-            <TextView
+            <!-- Panel header -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/quick_settings"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:paddingBottom="12dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp">
 
-            <!-- Quick toggle grid -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/quick_settings"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Battery display in panel -->
+                <TextView
+                    android:id="@+id/qp_battery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    tools:text="🔋 85%" />
+            </LinearLayout>
+
+            <!-- Brightness slider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="☀"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_secondary" />
+
+                <SeekBar
+                    android:id="@+id/qp_brightness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:max="255"
+                    android:progress="128"
+                    android:progressDrawable="@drawable/slider_track"
+                    android:thumb="@drawable/slider_thumb" />
+            </LinearLayout>
+
+            <!-- Volume slider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔊"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_secondary" />
+
+                <SeekBar
+                    android:id="@+id/qp_volume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:max="15"
+                    android:progress="7"
+                    android:progressDrawable="@drawable/slider_track"
+                    android:thumb="@drawable/slider_thumb" />
+            </LinearLayout>
+
+            <!-- Quick toggle grid - row 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,14 +340,16 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@android:drawable/ic_menu_share"
-                        android:contentDescription="@string/wifi" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📶"
+                        android:textSize="22sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,8 +363,10 @@
                         android:id="@+id/qp_wifi_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
-                        android:textColor="@color/text_secondary" />
+                        android:textSize="9sp"
+                        android:textColor="@color/text_secondary"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </LinearLayout>
 
                 <!-- Bluetooth Toggle -->
@@ -187,14 +377,16 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@android:drawable/ic_menu_share"
-                        android:contentDescription="@string/bluetooth" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔵"
+                        android:textSize="22sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -208,8 +400,37 @@
                         android:id="@+id/qp_bt_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
+                        android:textSize="9sp"
                         android:textColor="@color/text_secondary" />
+                </LinearLayout>
+
+                <!-- Airplane Mode Toggle -->
+                <LinearLayout
+                    android:id="@+id/qp_airplane"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✈"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/airplane_mode"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_primary"
+                        android:paddingTop="4dp"
+                        android:maxLines="1" />
                 </LinearLayout>
 
                 <!-- Network Toggle -->
@@ -220,14 +441,16 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@android:drawable/ic_menu_share"
-                        android:contentDescription="@string/network" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌐"
+                        android:textSize="22sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -241,8 +464,45 @@
                         android:id="@+id/qp_net_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
+                        android:textSize="9sp"
                         android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Quick toggle grid - row 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="8dp">
+
+                <!-- Screenshot -->
+                <LinearLayout
+                    android:id="@+id/qp_screenshot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📷"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/screenshot"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_primary"
+                        android:paddingTop="4dp" />
                 </LinearLayout>
 
                 <!-- Hardware Info -->
@@ -253,14 +513,16 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="@string/hardware_info" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ℹ"
+                        android:textSize="22sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -268,10 +530,247 @@
                         android:text="@string/hardware_info"
                         android:textSize="11sp"
                         android:textColor="@color/text_primary"
+                        android:paddingTop="4dp"
+                        android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Settings -->
+                <LinearLayout
+                    android:id="@+id/qp_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/toggle_background"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚙"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_primary"
                         android:paddingTop="4dp" />
                 </LinearLayout>
+
+                <!-- Spacer for alignment -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
+    <!-- TV Side Panel (left drawer for TV/remote) -->
+    <LinearLayout
+        android:id="@+id/side_panel"
+        android:layout_width="@dimen/side_panel_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/side_panel_background"
+        android:elevation="24dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/controls"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="32dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Side panel brightness -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☀"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary" />
+
+            <SeekBar
+                android:id="@+id/sp_brightness"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:max="255"
+                android:progress="128"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+        </LinearLayout>
+
+        <!-- Side panel volume -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔊"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary" />
+
+            <SeekBar
+                android:id="@+id/sp_volume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:max="15"
+                android:progress="7"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+        </LinearLayout>
+
+        <!-- Side panel quick toggles -->
+        <LinearLayout
+            android:id="@+id/sp_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_item_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            android:layout_marginBottom="6dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📶"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="@string/wifi"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/sp_wifi_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sp_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_item_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            android:layout_marginBottom="6dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔵"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="@string/bluetooth"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/sp_bt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sp_airplane"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_item_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            android:layout_marginBottom="6dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✈"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="@string/airplane_mode"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sp_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_item_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            android:layout_marginBottom="6dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚙"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="@string/settings"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </FrameLayout>

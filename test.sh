@@ -57,8 +57,10 @@ TEST_CLASSES=(
     "com.kidsafe.launcher.utils.ScreenUtilsTest"
     "com.kidsafe.launcher.utils.DeviceUtilsTest"
     "com.kidsafe.launcher.utils.NetworkUtilsTest"
+    "com.kidsafe.launcher.utils.ParentalControlManagerTest"
     "com.kidsafe.launcher.adapters.AppGridAdapterTest"
     "com.kidsafe.launcher.adapters.AppManageAdapterTest"
+    "com.kidsafe.launcher.adapters.AppListAdapterTest"
     "com.kidsafe.launcher.receivers.PackageChangeReceiverTest"
 )
 

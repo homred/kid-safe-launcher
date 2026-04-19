@@ -15,8 +15,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/primary"
-            android:elevation="4dp" />
+            android:background="@color/surface"
+            android:elevation="4dp"
+            android:titleTextColor="@color/text_primary" />
 
         <LinearLayout
             android:layout_width="match_parent"

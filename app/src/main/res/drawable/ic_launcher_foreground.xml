@@ -9,7 +9,7 @@
         android:translateY="22">
         <!-- Shield shape -->
         <path
-            android:fillColor="#4A90D9"
+            android:fillColor="#1E88E5"
             android:pathData="M32,4 L4,16 L4,36 C4,52.5 16,67.8 32,72 C48,67.8 60,52.5 60,36 L60,16 Z" />
         <!-- Star inside shield -->
         <path
