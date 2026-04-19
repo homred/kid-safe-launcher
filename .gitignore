@@ -1,5 +1,11 @@
-.gradle
+.gradle/
 build/
 app/build/
 local.properties
 *.apk
+*.iml
+.idea/
+*.class
+*.dex
+*.keystore
+test_deps/
