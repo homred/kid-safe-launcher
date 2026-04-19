@@ -43,6 +43,12 @@ chmod +x build.sh
 
 The APK will be output to `app/build/KidSafeLauncher-debug.apk`.
 
+### CI Build & Publish APK
+
+- GitHub Actions workflow: `.github/workflows/build-and-publish-apk.yml`
+- On `main` branch push / Pull Request / manual trigger: builds APK and uploads CI artifact
+- On tag push like `v1.0.0`: builds APK, uploads artifact, and publishes APK to GitHub Release
+
 ### Run Tests
 
 ```bash
