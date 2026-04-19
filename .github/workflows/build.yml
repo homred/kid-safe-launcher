@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout source
@@ -23,7 +25,8 @@ jobs:
 
       - name: Install Android SDK components
         run: |
-          yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" 2>/dev/null
+          yes | sdkmanager --licenses
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Build debug APK
         run: ./build.sh debug
@@ -37,12 +40,35 @@ jobs:
           name: KidSafeLauncher-debug
           path: app/build/KidSafeLauncher-debug.apk
 
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Install Android SDK components
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build debug APK
+        run: ./build.sh debug
+
       - name: Build release APK
-        if: startsWith(github.ref, 'refs/tags/v')
         run: ./build.sh release
 
       - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: |
