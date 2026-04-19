@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors - Modern flat design -->
+    <color name="primary">#FF4A90D9</color>
+    <color name="primary_dark">#FF3A7BC8</color>
+    <color name="primary_light">#FF6BA8E8</color>
+    <color name="accent">#FFFFB74D</color>
+
+    <!-- Surface Colors -->
+    <color name="background">#FFF5F5F5</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_elevated">#FFFAFAFA</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#DE000000</color>
+    <color name="text_secondary">#8A000000</color>
+    <color name="text_hint">#61000000</color>
+    <color name="on_primary">#FFFFFFFF</color>
+
+    <!-- UI Colors -->
+    <color name="divider">#1F000000</color>
+    <color name="search_background">#FFFFFFFF</color>
+    <color name="search_stroke">#1F000000</color>
+
+    <!-- Status colors -->
+    <color name="status_success">#FF4CAF50</color>
+    <color name="status_warning">#FFFFC107</color>
+    <color name="status_error">#FFF44336</color>
+</resources>

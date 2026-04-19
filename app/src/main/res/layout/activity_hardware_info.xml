@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activities.HardwareInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Device Name -->
+            <include layout="@layout/item_hardware_info"
+                android:id="@+id/row_device_name" />
+
+            <!-- Each info row -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_device"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_device_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="Device" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_manufacturer"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_manufacturer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="Samsung" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_model"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="Galaxy S24" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_android_version"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_android_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="14" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_sdk"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_sdk_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="34" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_cpu"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_cpu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="arm64-v8a" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_ram"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_ram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="4.2 GB / 8.0 GB" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_storage"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_storage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="50.3 GB / 128.0 GB" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_screen"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="1080 x 2340" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_density"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_density"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="3.0" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_battery"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:paddingTop="16dp" />
+            <TextView
+                android:id="@+id/info_battery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                tools:text="85%" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
