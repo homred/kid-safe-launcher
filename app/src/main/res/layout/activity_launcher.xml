@@ -72,7 +72,7 @@
                 android:layout_width="@dimen/toolbar_button_size"
                 android:layout_height="@dimen/toolbar_button_size"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/settings"
                 android:src="@android:drawable/ic_menu_preferences"
                 android:padding="8dp" />
@@ -82,21 +82,26 @@
                 android:layout_width="@dimen/toolbar_button_size"
                 android:layout_height="@dimen/toolbar_button_size"
                 android:layout_marginStart="4dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/manage_apps"
                 android:src="@android:drawable/ic_menu_manage"
                 android:padding="8dp" />
         </LinearLayout>
 
         <!-- App Grid -->
-        <androidx.recyclerview.widget.RecyclerView
+        <GridView
             android:id="@+id/app_grid"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
             android:padding="@dimen/grid_padding"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:numColumns="3"
+            android:horizontalSpacing="4dp"
+            android:verticalSpacing="8dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center" />
 
     </LinearLayout>
 
@@ -150,7 +155,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -183,7 +188,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -216,7 +221,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -249,7 +254,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageView
                         android:layout_width="32dp"

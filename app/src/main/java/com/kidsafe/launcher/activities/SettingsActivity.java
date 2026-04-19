@@ -1,12 +1,11 @@
 package com.kidsafe.launcher.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.widget.Toolbar;
 
 import com.kidsafe.launcher.R;
 import com.kidsafe.launcher.utils.NetworkUtils;
@@ -14,7 +13,7 @@ import com.kidsafe.launcher.utils.NetworkUtils;
 /**
  * Settings activity for managing WiFi, Bluetooth, Network, and other device settings.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +27,10 @@ public class SettingsActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.settings);
+            setActionBar(toolbar);
+            if (getActionBar() != null) {
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                getActionBar().setTitle(R.string.settings);
             }
         }
     }
@@ -57,13 +56,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (hardwareItem != null) {
             hardwareItem.setOnClickListener(v -> {
-                startActivity(new android.content.Intent(this, HardwareInfoActivity.class));
+                startActivity(new Intent(this, HardwareInfoActivity.class));
             });
         }
 
         if (manageAppsItem != null) {
             manageAppsItem.setOnClickListener(v -> {
-                startActivity(new android.content.Intent(this, AppManageActivity.class));
+                startActivity(new Intent(this, AppManageActivity.class));
             });
         }
     }

@@ -7,13 +7,12 @@
     android:orientation="vertical"
     tools:context=".activities.AppManageActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <android.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/primary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:elevation="4dp" />
 
     <!-- Search -->
     <EditText
@@ -35,7 +34,7 @@
         android:importantForAutofill="no" />
 
     <!-- App List -->
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/manage_app_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

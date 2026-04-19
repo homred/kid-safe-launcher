@@ -1,13 +1,12 @@
 package com.kidsafe.launcher.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.kidsafe.launcher.R;
 import com.kidsafe.launcher.models.AppInfo;
@@ -16,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * RecyclerView adapter for displaying installed apps in a grid.
+ * BaseAdapter for displaying installed apps in a GridView.
  */
-public class AppGridAdapter extends RecyclerView.Adapter<AppGridAdapter.AppViewHolder> {
+public class AppGridAdapter extends BaseAdapter {
 
+    private final Context context;
     private List<AppInfo> apps;
     private OnAppClickListener clickListener;
     private OnAppLongClickListener longClickListener;
@@ -32,11 +32,13 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppGridAdapter.AppViewH
         boolean onAppLongClick(AppInfo appInfo, View view);
     }
 
-    public AppGridAdapter() {
+    public AppGridAdapter(Context context) {
+        this.context = context;
         this.apps = new ArrayList<>();
     }
 
-    public AppGridAdapter(List<AppInfo> apps) {
+    public AppGridAdapter(Context context, List<AppInfo> apps) {
+        this.context = context;
         this.apps = apps != null ? new ArrayList<>(apps) : new ArrayList<>();
     }
 
@@ -60,53 +62,54 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppGridAdapter.AppViewH
         return new ArrayList<>(apps);
     }
 
-    @NonNull
     @Override
-    public AppViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_app, parent, false);
-        return new AppViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
-        AppInfo app = apps.get(position);
-        holder.bind(app);
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return apps.size();
     }
 
-    class AppViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView iconView;
-        private final TextView labelView;
+    @Override
+    public AppInfo getItem(int position) {
+        return apps.get(position);
+    }
 
-        AppViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iconView = itemView.findViewById(R.id.app_icon);
-            labelView = itemView.findViewById(R.id.app_label);
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(R.layout.item_app, parent, false);
+            holder = new ViewHolder();
+            holder.iconView = convertView.findViewById(R.id.app_icon);
+            holder.labelView = convertView.findViewById(R.id.app_label);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        void bind(AppInfo app) {
-            labelView.setText(app.getLabel());
-            if (app.getIcon() != null) {
-                iconView.setImageDrawable(app.getIcon());
-            }
-
-            itemView.setOnClickListener(v -> {
-                if (clickListener != null) {
-                    clickListener.onAppClick(app);
-                }
-            });
-
-            itemView.setOnLongClickListener(v -> {
-                if (longClickListener != null) {
-                    return longClickListener.onAppLongClick(app, v);
-                }
-                return false;
-            });
+        AppInfo app = apps.get(position);
+        holder.labelView.setText(app.getLabel());
+        if (app.getIcon() != null) {
+            holder.iconView.setImageDrawable(app.getIcon());
         }
+
+        return convertView;
+    }
+
+    public OnAppClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public OnAppLongClickListener getLongClickListener() {
+        return longClickListener;
+    }
+
+    private static class ViewHolder {
+        ImageView iconView;
+        TextView labelView;
     }
 }

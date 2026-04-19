@@ -1,11 +1,10 @@
 package com.kidsafe.launcher.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.widget.Toolbar;
 
 import com.kidsafe.launcher.R;
 import com.kidsafe.launcher.models.DeviceInfo;
@@ -14,7 +13,7 @@ import com.kidsafe.launcher.utils.DeviceUtils;
 /**
  * Activity displaying detailed hardware information about the device.
  */
-public class HardwareInfoActivity extends AppCompatActivity {
+public class HardwareInfoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +27,10 @@ public class HardwareInfoActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.hardware_info);
+            setActionBar(toolbar);
+            if (getActionBar() != null) {
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                getActionBar().setTitle(R.string.hardware_info);
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.kidsafe.launcher.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -14,15 +13,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.kidsafe.launcher.R;
 import com.kidsafe.launcher.adapters.AppGridAdapter;
@@ -42,9 +37,9 @@ import java.util.Locale;
  * Main launcher activity that replaces the device home screen.
  * Supports adaptive layout for watch, phone, tablet, and TV screens.
  */
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends Activity {
 
-    private RecyclerView appGrid;
+    private GridView appGrid;
     private AppGridAdapter appAdapter;
     private EditText searchBox;
     private View statusBar;
@@ -61,7 +56,6 @@ public class LauncherActivity extends AppCompatActivity {
     private boolean isQuickPanelVisible = false;
     private ScreenSize currentScreenSize;
 
-    // Clock update runnable
     private final Runnable clockRunnable = new Runnable() {
         @Override
         public void run() {
@@ -98,7 +92,6 @@ public class LauncherActivity extends AppCompatActivity {
         quickPanelOverlay = findViewById(R.id.quick_panel_overlay);
         quickPanelContent = findViewById(R.id.quick_panel_content);
 
-        // Toolbar buttons
         ImageButton btnSettings = findViewById(R.id.btn_settings);
         ImageButton btnManage = findViewById(R.id.btn_manage);
 
@@ -119,13 +112,30 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void setupAppGrid() {
         int columns = ScreenUtils.getGridColumnCount(this);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, columns);
-        appGrid.setLayoutManager(layoutManager);
+        appGrid.setNumColumns(columns);
 
-        appAdapter = new AppGridAdapter();
+        appAdapter = new AppGridAdapter(this);
+        appGrid.setAdapter(appAdapter);
+
+        appGrid.setOnItemClickListener((parent, view, position, id) -> {
+            AppInfo app = appAdapter.getItem(position);
+            if (app != null && appAdapter.getClickListener() != null) {
+                appAdapter.getClickListener().onAppClick(app);
+            } else if (app != null) {
+                onAppClicked(app);
+            }
+        });
+
+        appGrid.setOnItemLongClickListener((parent, view, position, id) -> {
+            AppInfo app = appAdapter.getItem(position);
+            if (app != null) {
+                return onAppLongClicked(app, view);
+            }
+            return false;
+        });
+
         appAdapter.setOnAppClickListener(this::onAppClicked);
         appAdapter.setOnAppLongClickListener(this::onAppLongClicked);
-        appGrid.setAdapter(appAdapter);
     }
 
     private void setupStatusBar() {
@@ -138,7 +148,7 @@ public class LauncherActivity extends AppCompatActivity {
     private void setupGestureDetector() {
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onFling(MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (e1 == null) return false;
                 float diffY = e2.getY() - e1.getY();
                 if (diffY > 150 && Math.abs(velocityY) > 100) {
@@ -176,7 +186,6 @@ public class LauncherActivity extends AppCompatActivity {
             quickPanelOverlay.setOnClickListener(v -> hideQuickPanel());
         }
 
-        // Setup quick panel buttons
         View btnWifi = findViewById(R.id.qp_wifi);
         View btnBluetooth = findViewById(R.id.qp_bluetooth);
         View btnNetwork = findViewById(R.id.qp_network);

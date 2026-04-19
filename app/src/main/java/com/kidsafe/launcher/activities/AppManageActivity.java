@@ -1,16 +1,14 @@
 package com.kidsafe.launcher.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.kidsafe.launcher.R;
 import com.kidsafe.launcher.adapters.AppManageAdapter;
@@ -22,9 +20,9 @@ import java.util.List;
 /**
  * Activity for managing and uninstalling applications.
  */
-public class AppManageActivity extends AppCompatActivity {
+public class AppManageActivity extends Activity {
 
-    private RecyclerView appList;
+    private ListView appList;
     private AppManageAdapter adapter;
     private EditText searchBox;
     private List<AppInfo> allApps;
@@ -42,10 +40,10 @@ public class AppManageActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle(R.string.manage_apps);
+            setActionBar(toolbar);
+            if (getActionBar() != null) {
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                getActionBar().setTitle(R.string.manage_apps);
             }
         }
     }
@@ -54,9 +52,7 @@ public class AppManageActivity extends AppCompatActivity {
         appList = findViewById(R.id.manage_app_list);
         searchBox = findViewById(R.id.manage_search_box);
 
-        appList.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new AppManageAdapter();
+        adapter = new AppManageAdapter(this);
         adapter.setOnUninstallClickListener(this::confirmUninstall);
         adapter.setOnInfoClickListener(app -> AppUtils.openAppDetails(this, app.getPackageName()));
         appList.setAdapter(adapter);
