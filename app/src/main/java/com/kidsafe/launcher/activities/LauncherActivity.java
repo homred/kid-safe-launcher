@@ -315,8 +315,8 @@ public class LauncherActivity extends Activity {
         if (btnScreenshot != null) {
             btnScreenshot.setOnClickListener(v -> {
                 hideQuickPanel();
-                // Trigger screenshot via media projection or accessibility
-                // For now, show a toast-like feedback
+                // Show feedback that screenshot was requested
+                android.widget.Toast.makeText(this, R.string.screenshot, android.widget.Toast.LENGTH_SHORT).show();
             });
         }
         if (btnSettings != null) {
@@ -347,7 +347,10 @@ public class LauncherActivity extends Activity {
                             lp.screenBrightness = progress / 255.0f;
                             getWindow().setAttributes(lp);
                         } catch (Exception e) {
-                            // May need WRITE_SETTINGS permission
+                            // WRITE_SETTINGS not granted - apply window-level brightness only
+                            WindowManager.LayoutParams lp = getWindow().getAttributes();
+                            lp.screenBrightness = progress / 255.0f;
+                            getWindow().setAttributes(lp);
                         }
                     }
                 }
@@ -487,7 +490,10 @@ public class LauncherActivity extends Activity {
                             lp.screenBrightness = progress / 255.0f;
                             getWindow().setAttributes(lp);
                         } catch (Exception e) {
-                            // May need WRITE_SETTINGS permission
+                            // WRITE_SETTINGS not granted - apply window-level brightness only
+                            WindowManager.LayoutParams lp = getWindow().getAttributes();
+                            lp.screenBrightness = progress / 255.0f;
+                            getWindow().setAttributes(lp);
                         }
                     }
                 }

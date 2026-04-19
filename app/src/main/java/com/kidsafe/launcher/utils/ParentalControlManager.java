@@ -3,6 +3,8 @@ package com.kidsafe.launcher.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public class ParentalControlManager {
     private static final String KEY_HIDDEN_APPS = "hidden_apps";
     private static final String KEY_VIEW_MODE = "view_mode";
     private static final String DEFAULT_PIN = "0000";
+    private static final String SALT = "KidSafeLauncher2024";
 
     public static final int VIEW_MODE_GRID = 0;
     public static final int VIEW_MODE_LIST = 1;
@@ -45,10 +48,10 @@ public class ParentalControlManager {
     }
 
     /**
-     * Set a new PIN.
+     * Set a new PIN (4-8 digits).
      */
     public void setPin(String pin) {
-        if (pin == null || pin.length() < 4) return;
+        if (pin == null || pin.length() < 4 || pin.length() > 8) return;
         prefs.edit().putString(KEY_PIN_HASH, hashPin(pin)).apply();
     }
 
@@ -108,14 +111,27 @@ public class ParentalControlManager {
     }
 
     /**
-     * Simple hash for PIN storage. Uses a basic hash to avoid storing plain text.
+     * Hash PIN using SHA-256 with salt for secure storage.
+     * Falls back to a simpler hash if SHA-256 is unavailable.
      */
     static String hashPin(String pin) {
         if (pin == null) return "";
-        int hash = 7;
-        for (int i = 0; i < pin.length(); i++) {
-            hash = hash * 31 + pin.charAt(i);
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest((SALT + pin).getBytes());
+            StringBuilder sb = new StringBuilder("ph_");
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Fallback: simple hash if SHA-256 not available
+            int hash = 7;
+            String salted = SALT + pin;
+            for (int i = 0; i < salted.length(); i++) {
+                hash = hash * 31 + salted.charAt(i);
+            }
+            return "ph_" + Integer.toHexString(hash);
         }
-        return "ph_" + Integer.toHexString(hash);
     }
 }

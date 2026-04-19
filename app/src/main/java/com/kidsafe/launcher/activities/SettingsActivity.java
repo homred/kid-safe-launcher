@@ -157,7 +157,7 @@ public class SettingsActivity extends Activity {
                 .setPositiveButton(R.string.save, (dialog, which) -> {
                     String newPin = newPinInput.getText().toString();
                     String confirmPin = confirmInput.getText().toString();
-                    if (newPin.length() >= 4 && newPin.equals(confirmPin)) {
+                    if (newPin.length() >= 4 && newPin.length() <= 8 && newPin.equals(confirmPin)) {
                         controlManager.setPin(newPin);
                         new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog)
                                 .setMessage(R.string.pin_set_success)
