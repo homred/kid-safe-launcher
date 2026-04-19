@@ -1,0 +1,8 @@
+// This project uses build.sh for direct SDK compilation.
+// Gradle/AGP build requires access to dl.google.com for the Android Gradle Plugin.
+// The build.gradle is retained for IDE support and future CI environments with
+// full internet access.
+
+plugins {
+    id 'com.android.application' version '8.9.1' apply false
+}

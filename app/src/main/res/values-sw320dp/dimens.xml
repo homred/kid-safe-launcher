@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Watch: smaller icons and text -->
+    <dimen name="app_icon_size">36dp</dimen>
+    <dimen name="app_label_size">10sp</dimen>
+    <dimen name="search_height">36dp</dimen>
+    <dimen name="search_padding">4dp</dimen>
+    <dimen name="grid_padding">4dp</dimen>
+    <dimen name="toolbar_button_size">32dp</dimen>
+    <dimen name="status_bar_height">0dp</dimen>
+</resources>
